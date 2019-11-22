@@ -17,12 +17,12 @@ classdef water_tank_model < handle
     end
 
     methods
-        function obj = water_tank_model()
+        function obj = water_tank_model(A,a,g)
             %WATER_TANK_MODEL Construct an instance of this class
             %   Default parameters
-            obj.A = 0.005;
-            obj.a = 0.004;
-            obj.gamma = 0.01;
+            obj.A = A;
+            obj.a = a;
+            obj.gamma = g;
 
             obj.y = 0;
             obj.y_old = 0;
@@ -92,7 +92,7 @@ classdef water_tank_model < handle
             %INTEGRATECONTROL Integrate control action u for time dt using
             %RK4 (Runge-Kutta order 4).
 
-            % Add your code here...
+
             k1 = obj.changeInWaterLevel(obj.y,u);
             k2 = obj.changeInWaterLevel((obj.y+(dt/2)*k1),u);
             k3 = obj.changeInWaterLevel((obj.y+(dt/2)*k2),u);

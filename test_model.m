@@ -1,7 +1,10 @@
 % Simple test program to check the water_tank_model class
 % Create an instance of the class
-wt = water_tank_model();
-wt_euler = water_tank_model();
+A = 0.008;
+a = 0.0021;
+gamma = 0.001;
+wt = water_tank_model(A,a,gamma);
+wt_euler = water_tank_model(A,a,gamma);
 
 % Peform 100 simulation steps
 nb_steps = 100;
@@ -20,9 +23,7 @@ wt_controller = PID_Controller(20,6,0.4,5,dt);
 %wt_euler_controller = PID_Controller(20,6,0.4,5,dt);
 
 for (i = 1:nb_steps)
-    disp("water level: " + wt.getWaterLevel);
     u = wt_controller.pid(wt.getWaterLevel);
-    disp("U: " + u);
 
     y_vec(i) = wt.getWaterLevel();
     dy_vec(i) = wt.changeInWaterLevel(y_vec(i), u);
@@ -34,6 +35,7 @@ for (i = 1:nb_steps)
     wt_euler.integrateControlEuler(u, dt);
 
     u_vec(i) = u;
+
 end
 
 figure
