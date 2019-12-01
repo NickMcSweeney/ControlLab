@@ -24,6 +24,7 @@ wt_controller = PID_Controller(20,6,0.4,5,dt);
 
 for (i = 1:nb_steps)
     u = wt_controller.pid(wt.getWaterLevel);
+    u = wt.controlLimits(u);
 
     y_vec(i) = wt.getWaterLevel();
     dy_vec(i) = wt.changeInWaterLevel(y_vec(i), u);
